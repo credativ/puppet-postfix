@@ -12,7 +12,7 @@ class postfix {
 
     exec { 'update-aliases':
         command     => '/usr/bin/newaliases',
-        refreshonly => True,
+        refreshonly => true,
 
     }
 
