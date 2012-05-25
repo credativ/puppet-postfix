@@ -1,5 +1,5 @@
-define postfix::instance ($instance=$title, $config_dir=undef, $queue_dir=undef, $data_dir=undef) {
-    $instance_name = "postfix-$instance"
+define postfix::instance ($instance=$title, $config_dir=undef,
+    $queue_dir=undef, $data_dir=undef) $instance_name = "postfix-$instance" {
 
     if $config_dir {
         $c_dir = $config_dir
@@ -21,17 +21,17 @@ define postfix::instance ($instance=$title, $config_dir=undef, $queue_dir=undef,
 
     file { $q_dir:
         ensure => directory,
-        notify => Exec["check-instance-$instance_name"]
+        notify => Exec["check-instance-${instance_name}"]
     }
 
     file { $d_dir:
         ensure => directory,
-        notify => Exec["check-instance-$instance_name"]
+        notify => Exec["check-instance-${instance_name}"]
     }
 
-    exec { "check-instance-$instance_name":
-        command => "/usr/sbin/postfix check",
-        returns => [0, 1],
+    exec { "check-instance-${instance_name}":
+        command     => '/usr/sbin/postfix check',
+        returns     => [0, 1],
         refreshonly => true
     }
 
@@ -39,7 +39,7 @@ define postfix::instance ($instance=$title, $config_dir=undef, $queue_dir=undef,
         command => "postmulti -I $instance_name -e create \
             config_directory=$c_dir queue_directory=$q_dir \
             data_directory=$d_dir",
-        unless => "postconf multi_instance_directories|grep -q $instance_name",
-        path => ["/usr/sbin", "/usr/bin", "/bin"]
+        unless  => "postconf multi_instance_directories|grep -q $instance_name",
+        path    => ['/usr/sbin', '/usr/bin', '/bin']
     }
 }
