@@ -6,7 +6,7 @@ class postfix {
     file { '/etc/aliases':
         mode    => '0644',
         owner   => 'root',
-        group   => 'root'
+        group   => 'root',
         notify  => Exec['update-aliases']
     }
 
