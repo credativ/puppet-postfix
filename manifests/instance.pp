@@ -1,5 +1,7 @@
 define postfix::instance ($instance=$title, $config_dir=undef,
-    $queue_dir=undef, $data_dir=undef) $instance_name = "postfix-$instance" {
+    $queue_dir=undef, $data_dir=undef) {
+    
+    $instance_name = "postfix-$instance"
 
     if $config_dir {
         $c_dir = $config_dir
