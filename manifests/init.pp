@@ -1,24 +1,24 @@
 class postfix {
-    package { 'postfix':
-        ensure => present
-    }
+  exec { 'update-aliases':
+    command     => '/usr/bin/newaliases',
+    path        => '/etc/init.d:/usr/bin:/usr/sbin:/bin:/sbin',
+    refreshonly => true,
+  }
 
-    file { '/etc/aliases':
-        mode    => '0644',
-        owner   => 'root',
-        group   => 'root',
-        notify  => Exec['update-aliases']
-    }
+  file { '/etc/aliases':
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    notify  => Exec['update-aliases'],
+  }
 
-    exec { 'update-aliases':
-        command     => '/usr/bin/newaliases',
-        refreshonly => true,
+  package { 'postfix':
+    ensure => present,
+  }
 
-    }
-
-    service { 'postfix':
-        ensure      => running,
-        hasrestart  => true,
-        hasstatus   => true
-    }
+  service { 'postfix':
+    ensure      => running,
+    hasrestart  => true,
+    hasstatus   => true,
+  }
 }
