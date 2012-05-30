@@ -19,6 +19,11 @@ class postfix (
         ensure => $ensure
     }
 
+    exec { 'update-aliases':
+        command     => '/usr/sbin/update-aliases',
+        refreshonly => true
+    }
+
     file { '/etc/aliases':
         owner   => 'root',
         group   => 'root',
