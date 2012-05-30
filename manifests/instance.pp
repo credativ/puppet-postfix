@@ -1,12 +1,9 @@
-<<<<<<< Updated upstream
 define postfix::instance (
   $instance=$title,
   $config_dir=undef,
   $queue_dir=undef,
   $data_dir=undef
 ) {
-    $queue_dir=undef, $data_dir=undef) {
-    
     $instance_name = "postfix-$instance"
 
     if $config_dir {
@@ -48,7 +45,7 @@ define postfix::instance (
     }
 
     exec { "init-instance-support":
-        command => "postmulti -e init"
+        command => "postmulti -e init",
         unless => "grep -q multi_instance_wrapper /etc/postfix/main.cf"
     }
 

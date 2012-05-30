@@ -7,7 +7,7 @@ class postfix (
     $config_template    = params_lookup("config_template"),
     $instances          = params_lookup("instances"),
    
-    ) inherits postfix:params {
+    ) inherits postfix::params {
    
     stage { 'pre':
         before => Stage['main']
@@ -15,7 +15,7 @@ class postfix (
 
     if $manage_instance {
         class { 'postfix::instances':
-            instances   => $instances 
+            instances   => $instances,
             stage       => 'pre'
         }
     }
