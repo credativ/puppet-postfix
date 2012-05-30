@@ -15,6 +15,7 @@ class postfix (
             stage       => 'setup'
         }
     }
+
     package { 'postfix':
         ensure => $ensure
     }
@@ -29,15 +30,13 @@ class postfix (
         group   => 'root',
         mode    => '0644',
         notify  => Exec['update-aliases'],
-    }
-
-    package { 'postfix':
-        ensure => present,
+        require => Package['postfix'],
     }
 
     service { 'postfix':
         ensure      => running,
         hasrestart  => true,
         hasstatus   => true,
+        require     => Package['postfix'],
     }
 }
