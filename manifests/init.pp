@@ -19,20 +19,20 @@ class postfix (
         ensure => $ensure
     }
 
-  file { '/etc/aliases':
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    notify  => Exec['update-aliases'],
-  }
+    file { '/etc/aliases':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        notify  => Exec['update-aliases'],
+    }
 
-  package { 'postfix':
-    ensure => present,
-  }
+    package { 'postfix':
+        ensure => present,
+    }
 
-  service { 'postfix':
-    ensure      => running,
-    hasrestart  => true,
-    hasstatus   => true,
-  }
+    service { 'postfix':
+        ensure      => running,
+        hasrestart  => true,
+        hasstatus   => true,
+    }
 }
