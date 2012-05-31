@@ -55,4 +55,10 @@ define postfix::instance (
             data_directory=$d_dir",
         unless  => "postconf multi_instance_directories|grep -q $instance_name",
     }
+
+    exec { "enable-instance-$instance":
+	command => "postmulti -i $instance_name -e enable",
+	unless  => "grep -q 'multi_instance_enable = yes' ${c_dir}/main.cf",
+	require => Exec["init-instance-${instance}"]
+    }
 }
