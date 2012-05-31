@@ -1,6 +1,6 @@
 class postfix::service (
-    ensure => 'running',
-    enabled => true
+    $ensure	= 'running',
+    $enabled	= true
     ) inherits postfix::params {
 
     Class['postfix::package'] -> Class['postfix::service']

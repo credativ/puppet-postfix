@@ -1,8 +1,8 @@
 class postfix::package (
-    $ensure => 'present',
+    $ensure = 'present',
     ) inherits postfix::params {
 
-    package { 'postfix:'
+    package { 'postfix':
 	ensure => $ensure,
     }
 }
