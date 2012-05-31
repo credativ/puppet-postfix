@@ -9,6 +9,9 @@ class postfix (
 
     ) inherits postfix::params {
 
+    Class['postfix::package'] -> Class['postfix::instances']
+	-> Class['postfix::service']
+
     class { 'postfix::instances':
 	manage_instances => $manage_instances,
 	instances => $instances,
