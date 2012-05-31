@@ -6,18 +6,24 @@ class postfix (
     $config_source      = params_lookup("config_source"),
     $config_template    = params_lookup("config_template"),
     $instances          = params_lookup("instances"),
-   
+
     ) inherits postfix::params {
-   
-    if $manage_instances {
-        class { 'postfix::instances':
-            instances   => $instances,
-            stage       => 'setup'
-        }
+
+    Class['postfix::package'] -> Class['postfix::instances']
+	-> Class['postfix::service']
+
+    class { 'postfix::instances':
+	manage_instances => $manage_instances,
+	instances => $instances,
     }
 
-    package { 'postfix':
-        ensure => $ensure
+    class { 'postfix::package':
+	ensure => $ensure,
+    }
+
+    class { 'postfix::service':
+	ensure	=> $ensure_running,
+	enabled	=> $ensure_enabled
     }
 
     exec { 'update-aliases':
@@ -33,10 +39,4 @@ class postfix (
         require => Package['postfix'],
     }
 
-    service { 'postfix':
-        ensure      => running,
-        hasrestart  => true,
-        hasstatus   => true,
-        require     => Package['postfix'],
-    }
 }
