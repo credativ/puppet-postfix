@@ -16,8 +16,13 @@ class postfix (
         }
     }
 
-    package { 'postfix':
-        ensure => $ensure
+    class { 'postfix::package':
+	ensure => $ensure,
+    }
+
+    class { 'postfix::service':
+	ensure	=> $ensure_running,
+	enabled	=> $ensure_enabled
     }
 
     exec { 'update-aliases':
@@ -33,10 +38,4 @@ class postfix (
         require => Package['postfix'],
     }
 
-    service { 'postfix':
-        ensure      => running,
-        hasrestart  => true,
-        hasstatus   => true,
-        require     => Package['postfix'],
-    }
 }
