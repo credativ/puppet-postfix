@@ -6,9 +6,9 @@ class postfix (
     $config_source      = params_lookup("config_source"),
     $config_template    = params_lookup("config_template"),
     $instances          = params_lookup("instances"),
-   
+
     ) inherits postfix::params {
-   
+
     if $manage_instances {
         class { 'postfix::instances':
             instances   => $instances,
