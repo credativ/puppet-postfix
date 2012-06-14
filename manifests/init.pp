@@ -10,20 +10,20 @@ class postfix (
     ) inherits postfix::params {
 
     Class['postfix::package'] -> Class['postfix::instances']
-	-> Class['postfix::service']
+        -> Class['postfix::service']
 
     class { 'postfix::instances':
-	manage_instances => $manage_instances,
-	instances => $instances,
+        manage_instances => $manage_instances,
+        instances => $instances,
     }
 
     class { 'postfix::package':
-	ensure => $ensure,
+        ensure => $ensure,
     }
 
     class { 'postfix::service':
-	ensure	=> $ensure_running,
-	enabled	=> $ensure_enabled
+        ensure  => $ensure_running,
+        enabled => $ensure_enabled
     }
 
     exec { 'update-aliases':

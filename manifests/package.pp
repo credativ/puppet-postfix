@@ -3,6 +3,6 @@ class postfix::package (
     ) inherits postfix::params {
 
     package { 'postfix':
-	ensure => $ensure,
+        ensure => $ensure,
     }
 }

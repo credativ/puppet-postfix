@@ -57,8 +57,8 @@ define postfix::instance (
     }
 
     exec { "enable-instance-$instance":
-	command => "postmulti -i $instance_name -e enable",
-	unless  => "grep -q 'multi_instance_enable = yes' ${c_dir}/main.cf",
-	require => Exec["init-instance-${instance}"]
+        command => "postmulti -i $instance_name -e enable",
+        unless  => "grep -q 'multi_instance_enable = yes' ${c_dir}/main.cf",
+        require => Exec["init-instance-${instance}"]
     }
 }
