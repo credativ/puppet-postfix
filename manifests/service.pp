@@ -7,7 +7,7 @@ class postfix::service (
 
     service { 'postfix':
         ensure      => $ensure,
-        enabled     => $enabled,
+        enable      => $enabled,
         hasrestart  => true,
         hasstatus   => true,
         require     => Package['postfix'],
