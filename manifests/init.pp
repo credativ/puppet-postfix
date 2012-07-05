@@ -31,7 +31,8 @@ class postfix (
             owner   => 'root',
             group   => 'root',
             mode    => '0644',
-            content => template("postfix/${config_template}")
+            content => template("postfix/${config_template}"),
+            notify  => Service['postfix']
         }
     }
     exec { 'update-aliases':
