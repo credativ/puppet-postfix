@@ -6,9 +6,10 @@ class postfix (
     $config_source      = params_lookup("config_source"),
     $config_template    = params_lookup("config_template"),
     $instances          = params_lookup("instances"),
-    $myorigin		= params_lookup("myorigin"),
+    $myorigin           = params_lookup("myorigin"),
     $smtp_bind_address  = params_lookup("smtp_bind_address"),
-    $smtp_helo_name     = params_lookup("smtp_helo_name")    
+    $smtp_helo_name     = params_lookup("smtp_helo_name"),
+    $root_alias         = params_lookup("root_alias"),
 
     ) inherits postfix::params {
 
@@ -39,6 +40,12 @@ class postfix (
             notify  => Service['postfix']
         }
     }
+
+    augeas { 'root_alias':
+       context => '/files/etc/aliases',
+       changes => "set /[name = 'root']/value $root_alias"
+    }
+    
     exec { 'update-aliases':
         command     => '/usr/sbin/update-aliases',
         refreshonly => true
