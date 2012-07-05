@@ -26,6 +26,14 @@ class postfix (
         enabled => $ensure_enabled
     }
 
+    if $config_template {
+        file { '/etc/postfix/main.cf':
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            content => template("postfix/${config_template}")
+        }
+    }
     exec { 'update-aliases':
         command     => '/usr/sbin/update-aliases',
         refreshonly => true
