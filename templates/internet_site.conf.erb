@@ -39,7 +39,6 @@ recipient_delimiter = +
 inet_interfaces = all
 
 mailbox_command = /usr/bin/procmail -a $EXTENSION
-transport_maps = hash:/etc/postfix/transport
 
 <% if smtp_bind_address -%>
 smtp_bind_address =
@@ -48,7 +47,7 @@ smtp_bind_address =
 message_size_limit = 20480000
 
 <% if smtp_helo_name -%>
-smtp_helo_name = <%= helo_name %>
+smtp_helo_name = <%= smtp_helo_name %>
 <% end -%>
 
 # keine MIME Umsetzung

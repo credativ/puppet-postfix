@@ -6,4 +6,7 @@ class postfix::params {
     $config_source      = undef
     $config_template    = undef
     $instances          = undef
+    $myorigin           = undef
+    $smtp_bind_address  = undef
+    $smtp_helo_name     = $::fqdn
 }
