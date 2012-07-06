@@ -1,0 +1,11 @@
+# MANAGED BY PUPPET
+
+postmaster: root
+<% if root_alias -%>
+root: <%= root_alias %>
+<% end -%>
+<% if aliases -%>
+<% aliases.each do |key,val| -%>
+<%= key %>: <%= value %>
+<% end %>
+<% end %>
