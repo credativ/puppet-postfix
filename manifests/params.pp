@@ -11,4 +11,5 @@ class postfix::params {
     $smtp_helo_name     = $::fqdn
     $root_alias         = undef
     $aliases            = undef
+    $disabled_hosts     = undef
 }

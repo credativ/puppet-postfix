@@ -11,6 +11,7 @@ class postfix (
     $smtp_helo_name     = params_lookup("smtp_helo_name"),
     $root_alias         = params_lookup("root_alias"),
     $aliases            = params_lookup("aliases"),
+    $disabled_hosts     = params_lookup("disabled_hosts"),
 
     ) inherits postfix::params {
 
@@ -32,6 +33,13 @@ class postfix (
         enabled => $ensure_enabled
     }
 
+    if $::hostname in $disabled_hosts {
+        Class['Postfix::Service'] {
+            ensure  => false,
+            enabled => false
+        }
+    }
+            
     if $config_template {
         file { '/etc/postfix/main.cf':
             owner   => 'root',
