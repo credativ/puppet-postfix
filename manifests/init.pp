@@ -10,6 +10,7 @@ class postfix (
     $smtp_bind_address  = params_lookup("smtp_bind_address"),
     $smtp_helo_name     = params_lookup("smtp_helo_name"),
     $root_alias         = params_lookup("root_alias"),
+    $aliases            = params_lookup("aliases"),
 
     ) inherits postfix::params {
 
@@ -41,11 +42,14 @@ class postfix (
         }
     }
 
-    augeas { 'root_alias':
-       context => '/files/etc/aliases',
-       changes => "set /[name = 'root']/value $root_alias"
+    file { '/etc/aliases':
+        ensure      => present,
+        content     => template('aliases.erb')
+        mode        => '0644'
+        owner       => 'root',
+        group       => 'root'
     }
-    
+
     exec { 'update-aliases':
         command     => '/usr/sbin/update-aliases',
         refreshonly => true

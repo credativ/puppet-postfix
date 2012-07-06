@@ -9,4 +9,6 @@ class postfix::params {
     $myorigin           = undef
     $smtp_bind_address  = undef
     $smtp_helo_name     = $::fqdn
+    $root_alias         = undef
+    $aliases            = undef
 }
