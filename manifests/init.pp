@@ -28,18 +28,19 @@ class postfix (
         ensure => $ensure,
     }
 
-    class { 'postfix::service':
-        ensure  => $ensure_running,
-        enabled => $ensure_enabled
+    if $::hostname in $disabled_hosts {
+	$real_running = 'stopped'
+	$real_enabled = false
+    } else {
+	$real_running = $running
+	$real_enabled = $enabled
     }
 
-    if $::hostname in $disabled_hosts {
-        Class['Postfix::Service'] {
-            ensure  => false,
-            enabled => false
-        }
+    class { 'postfix::service':
+        ensure  => $real_running,
+        enabled => $real_enabled
     }
-            
+
     if $config_template {
         file { '/etc/postfix/main.cf':
             owner   => 'root',
@@ -50,25 +51,20 @@ class postfix (
         }
     }
 
-    file { '/etc/aliases':
-        ensure      => present,
-        content     => template('aliases.erb'),
-        mode        => '0644',
-        owner       => 'root',
-        group       => 'root'
-    }
-
     exec { 'update-aliases':
-        command     => '/usr/sbin/update-aliases',
+        command     => '/usr/sbin/newaliases',
         refreshonly => true
     }
-
-    file { '/etc/aliases':
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        notify  => Exec['update-aliases'],
-        require => Package['postfix'],
+    if $manage_aliases {
+	    file { '/etc/aliases':
+		ensure	=> present,
+		content => template('postfix/aliases.erb'),
+		owner   => 'root',
+		group   => 'root',
+		mode    => '0644',
+		notify  => Exec['update-aliases'],
+		require => Package['postfix'],
+	    }
     }
 
 }
