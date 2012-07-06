@@ -44,8 +44,8 @@ class postfix (
 
     file { '/etc/aliases':
         ensure      => present,
-        content     => template('aliases.erb')
-        mode        => '0644'
+        content     => template('aliases.erb'),
+        mode        => '0644',
         owner       => 'root',
         group       => 'root'
     }
