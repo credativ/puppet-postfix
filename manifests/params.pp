@@ -3,6 +3,7 @@ class postfix::params {
     $ensure_running     = true
     $ensure_enabled     = true
     $manage_instances   = false
+    $manage_aliases	= false
     $config_source      = undef
     $config_template    = undef
     $instances          = undef
@@ -10,6 +11,6 @@ class postfix::params {
     $smtp_bind_address  = undef
     $smtp_helo_name     = $::fqdn
     $root_alias         = undef
-    $aliases            = undef
+    $aliases            = []
     $disabled_hosts     = []
 }
