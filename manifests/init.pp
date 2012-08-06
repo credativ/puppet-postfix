@@ -53,7 +53,7 @@ class postfix (
     }
 
     exec { 'update-aliases':
-        command     => '/usr/sbin/newaliases',
+        command     => '/usr/bin/newaliases',
         refreshonly => true
     }
     if $manage_aliases {
