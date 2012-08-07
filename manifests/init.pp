@@ -14,6 +14,7 @@ class postfix (
     $aliases            = params_lookup('aliases'),
     $disabled_hosts     = params_lookup('disabled_hosts'),
     $relayhost          = params_lookup('relayhost'),
+    $inet_interfaces    = params_lookup('inet_interfaces'),
 
     ) inherits postfix::params {
 

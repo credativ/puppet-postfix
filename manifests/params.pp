@@ -14,4 +14,5 @@ class postfix::params {
     $aliases            = []
     $disabled_hosts     = []
     $relayhost          = undef
+    $inet_interfaces    = undef
 }
