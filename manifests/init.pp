@@ -13,6 +13,7 @@ class postfix (
     $root_alias         = params_lookup('root_alias'),
     $aliases            = params_lookup('aliases'),
     $disabled_hosts     = params_lookup('disabled_hosts'),
+    $localdomain        = params_lookup('localdomain'),
     $relayhost          = params_lookup('relayhost'),
     $inet_interfaces    = params_lookup('inet_interfaces'),
 
