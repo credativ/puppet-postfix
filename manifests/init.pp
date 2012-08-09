@@ -1,3 +1,73 @@
+# = Class: postfix
+#
+# Module to manage postfix
+#
+# == Requirements:
+#
+# - This module makes use of the example42 functions in the puppi module
+#   (https://github.com/credativ/puppet-example42lib)
+#
+# == Parameters:
+#
+# [*ensure*]
+#   What state to ensure for the package. Accepts the same values
+#   as the parameter of the same name for a package type.
+#   Default: present
+#   
+# [*ensure_running*]
+#   Weither to ensure running postfix or not.
+#   Default: running
+#
+# [*ensure_enabled*]
+#   Weither to ensure that postfix is started on boot or not.
+#   Default: true
+#
+# [*config_source*]
+#   Specify a configuration source for the configuration (main.cf). If this
+#   is specified it is used instead of a template-generated configuration
+#
+# [*config_template*]
+#   Define a template for the configuration.
+#
+# [*disabled_hosts*]
+#   A list of hosts whose postfix will be disabled, if their
+#   hostname matches a name in the list.
+#
+# [*manage_aliases*]
+#   Weither to manage the aliases file. Note that this also creates an
+#   alias for the root user, so root_alias should be set to a sensible value.
+#
+# [*manage_instances*]
+#   Weither instances should be managed. Only useful in conjunction
+#   with the instances parameter.
+#   (Default: False)
+#
+# [*instances*]
+#   A list of postfix instances that should be created (only useful in
+#   conjunction with manage_instances)
+#
+# [*root_alias*]
+#   Defines the alias for root mail.
+#
+# [*aliases*]
+#   Allows further aliases to be defined.
+
+# [*myorigin*]
+#   Refers to the myorigin configuration paramater.
+#
+# [*localdomain*]
+#   Should describe the localdomain of this host. Will be added to the
+#   mydestination configuration
+#
+# [*relayhost*]
+#   Allows to define a relayhost in the configuration.
+#
+# [*inet_interfaces*]
+#   Allows to define a value for the inet_interfaces parameter.
+#
+# == Author:
+#
+#   Patrick Schoenfeld <patrick.schoenfeld@credativ.de
 class postfix (
     $ensure             = params_lookup('ensure'),
     $ensure_running     = params_lookup('ensure_running'),
