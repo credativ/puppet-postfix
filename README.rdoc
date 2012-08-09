@@ -1,0 +1,36 @@
+= Puppet module: postfix
+
+This is a puppet module for postfix based on the common credativ puppet
+modules layout (https://github.com/credativ/puppet-module-template)
+
+== Features
+
+The module suupports:
+
+- Create a main.cf from a template with support for some of the most
+  common options or copy the main.cf from a specified config_source
+- Initial creation of postfix instances
+  (http://www.postfix.org/MULTI_INSTANCE_README.html)
+- Manage aliases
+
+
+== Usage
+
+Most common use case for the module is to just include it
+and configure it in the hiera backend.
+
+So including it via the following line of code or in a ENC declaration
+(apart from proper configuration in hiera or top-scope variables)
+is usually enough:
+
+        class { 'postfix': }
+
+The module is able to create configuration itself, it just needs appropriate
+parameters. See the documentation for the main manifest for an explanation
+of the parameters.
+
+Apart from this specifying a config_source works as well.
+
+        class { 'postfix':
+            config_source => 'puppet:///files/foo/postfix.conf'
+        }
