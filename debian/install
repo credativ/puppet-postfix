@@ -1,0 +1,3 @@
+manifests   etc/puppet/modules/postfix
+templates   etc/puppet/modules/postfix
+README*     usr/share/doc/puppet-module-postfix

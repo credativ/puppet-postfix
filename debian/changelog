@@ -1,0 +1,5 @@
+puppet-module-postfix (1.0.1) unstable; urgency=low
+
+  * Initial debian release.
+
+ -- Damian Lukowski <damian.lukowski@credativ.de>  Wed, 11 Jun 2014 15:51:31 +0200

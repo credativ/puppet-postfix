@@ -1,0 +1,11 @@
+Source: puppet-module-postfix
+Section: admin
+Priority: optional
+Maintainer: Damian Lukowski <damian.lukowski@credativ.de>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.9.5
+
+Package: puppet-module-postfix
+Architecture: all
+Depends: ${misc:Depends}
+Description: puppet module postfix

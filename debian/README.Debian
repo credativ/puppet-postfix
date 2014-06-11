@@ -1,0 +1,6 @@
+puppet-module-postfix for Debian
+---------------------------------------
+
+This puppet module has been packaged with dh-make-puppet.
+
+ -- Damian Lukowski <damian.lukowski@credativ.de>, Wed, 11 Jun 2014 15:51:31 +0200
