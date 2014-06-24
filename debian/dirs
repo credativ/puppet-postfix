@@ -1,1 +1,1 @@
-etc/puppet/modules/postfix
+usr/share/puppet/modules.available/postfix

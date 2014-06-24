@@ -2,6 +2,7 @@ Source: puppet-module-postfix
 Section: admin
 Priority: optional
 Maintainer: Damian Lukowski <damian.lukowski@credativ.de>
+Uploaders: Patrick Schoenfeld <patrick.schoenfeld@credativ.de>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.9.5
 

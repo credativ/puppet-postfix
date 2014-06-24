@@ -1,3 +1,3 @@
-manifests   etc/puppet/modules/postfix
-templates   etc/puppet/modules/postfix
+manifests   usr/share/puppet/modules.available/postfix
+templates   usr/share/puppet/modules.available/postfix
 README*     usr/share/doc/puppet-module-postfix
