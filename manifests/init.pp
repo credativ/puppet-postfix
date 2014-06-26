@@ -33,6 +33,10 @@
 #   A list of hosts whose postfix will be disabled, if their
 #   hostname matches a name in the list.
 #
+# [*manage_config*]
+#   Weither to manage configuration of postfix at all. If this is set to false
+#   no configuration files (main.cf, aliases, etc.) will be managed at all.
+#
 # [*manage_aliases*]
 #   Weither to manage the aliases file. Note that this also creates an
 #   alias for the root user, so root_alias should be set to a sensible value.
@@ -72,6 +76,7 @@ class postfix (
     $ensure             = params_lookup('ensure'),
     $ensure_running     = params_lookup('ensure_running'),
     $ensure_enabled     = params_lookup('ensure_enabled'),
+    $manage_config      = params_lookup('manage_config'),
     $manage_instances   = params_lookup('manage_instances'),
     $manage_aliases     = params_lookup('manage_aliases'),
     $config_source      = params_lookup('config_source'),
@@ -115,29 +120,32 @@ class postfix (
         enabled => $real_enabled
     }
 
-    if $config_template {
-        file { '/etc/postfix/main.cf':
-            owner   => 'root',
-            group   => 'root',
-            mode    => '0644',
-            content => template("postfix/${config_template}"),
-            notify  => Service['postfix']
-        }
-    }
 
-    exec { 'update-aliases':
-        command     => '/usr/bin/newaliases',
-        refreshonly => true
-    }
-    if $manage_aliases {
-        file { '/etc/aliases':
-            ensure  => present,
-            content => template('postfix/aliases.erb'),
-            owner   => 'root',
-            group   => 'root',
-            mode    => '0644',
-            notify  => Exec['update-aliases'],
-            require => Package['postfix'],
+    if $manage_config {
+        if $config_template {
+            file { '/etc/postfix/main.cf':
+                owner   => 'root',
+                group   => 'root',
+                mode    => '0644',
+                content => template("postfix/${config_template}"),
+                notify  => Service['postfix']
+            }
+        }
+
+        exec { 'update-aliases':
+            command     => '/usr/bin/newaliases',
+            refreshonly => true
+        }
+        if $manage_aliases {
+            file { '/etc/aliases':
+                ensure  => present,
+                content => template('postfix/aliases.erb'),
+                owner   => 'root',
+                group   => 'root',
+                mode    => '0644',
+                notify  => Exec['update-aliases'],
+                require => Package['postfix'],
+            }
         }
     }
 }
