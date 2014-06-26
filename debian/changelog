@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.3) unstable; urgency=medium
+
+  * Add a manage_config parameter
+
+ -- Patrick Schoenfeld <patrick.schoenfeld@credativ.de>  Thu, 26 Jun 2014 10:47:07 +0200
+
 puppet-module-postfix (1.0.2) unstable; urgency=medium
 
   * Change module path
