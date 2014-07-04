@@ -5,7 +5,7 @@ define postfix::instance (
     $instance_name  = "postfix-$instance"
     $queue_dir      = "/var/spool/${instance_name}" 
     $data_dir       = "/var/lib/${instance_name}" 
-    $config_diir    = "/etc/${instance_name}"
+    $config_dir    = "/etc/${instance_name}"
 
     file { "${queue_dir}":
         ensure => directory,
@@ -34,17 +34,8 @@ define postfix::instance (
 
     exec { "init-instance-${instance_name}":
         command => "/usr/sbin/postmulti -I ${instance_name} -e create",
-        unless  => "/usr/sbin/postmulti -l | /bin/grep '^${instane_name} '"
+        unless  => "/usr/sbin/postmulti -l | /bin/grep '^${instance_name} '",
     }
-
-    exec { "check-permissions":
-        command     => "/usr/sbin/postfix set-permissions",
-        onlyif      => "/usr/sbin/postfix check 2>&1|/bin/grep 'Permission denied'",
-        subscribe   => Exec['init-instance-${instance_name}'],
-        require     => File["${config_dir}/dynamicmaps.cf"],
-        returns     => [0, 1]
-    }
-
 
     if $ensure == 'enabled' {
         exec { "enable-instance-${instance_name}":

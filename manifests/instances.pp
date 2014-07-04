@@ -2,8 +2,10 @@ class postfix::instances (
     $manage_instances = false,
     $instances = undef,
     ) inherits postfix {
-    
-    Class['postfix::package'] -> Class['postfix::instances']
+
+    include postfix::setperms
+
+    Class['postfix'] -> Class['postfix::instances']
 
     if $manage_instances {
         if ! is_hash($instances) {
@@ -11,8 +13,14 @@ class postfix::instances (
         }
 
         Postfix::Instance { 
-            notify  => Service['postfix'],
-            require => Exec['init_multi_instance_support'],
+            notify  => [
+                Exec["postfix/set_perms"],
+                Service['postfix'],
+            ],
+            require => [
+                Class['postfix'],
+                Exec['init_multi_instance_support'],
+            ]
 
         }
         

@@ -94,6 +94,8 @@ class postfix (
 
     ) inherits postfix::params {
 
+    include postfix::setperms
+
     Class['postfix::package'] -> Class['postfix::instances']
         -> Class['postfix::service']
 
@@ -148,4 +150,6 @@ class postfix (
             }
         }
     }
+
+
 }
