@@ -2,6 +2,8 @@ define postfix::instance (
   $instance=$title,
   $ensure = 'enabled'
 ) {
+    include postfix::setperms
+
     $instance_name  = "postfix-$instance"
     $queue_dir      = "/var/spool/${instance_name}" 
     $data_dir       = "/var/lib/${instance_name}" 
@@ -41,7 +43,7 @@ define postfix::instance (
         exec { "enable-instance-${instance_name}":
             command => "postmulti -i $instance_name -e enable",
             unless  => "grep -q 'multi_instance_enable = yes' ${c_dir}/main.cf",
-            require => Exec["init-instance-${instance}"]
+            require => Exec["init-instance-${instance_name}"]
         }
     }
 }

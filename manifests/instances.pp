@@ -13,15 +13,9 @@ class postfix::instances (
         }
 
         Postfix::Instance { 
-            notify  => [
-                Exec["postfix/set_perms"],
-                Service['postfix'],
+            before  => [
+                Exec["postfix_setperms"],
             ],
-            require => [
-                Class['postfix'],
-                Exec['init_multi_instance_support'],
-            ]
-
         }
         
         exec { 'init_multi_instance_support':
