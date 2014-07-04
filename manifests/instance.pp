@@ -1,64 +1,56 @@
 define postfix::instance (
   $instance=$title,
-  $config_dir=undef,
-  $queue_dir=undef,
-  $data_dir=undef
+  $ensure = 'enabled'
 ) {
-    $instance_name = "postfix-$instance"
+    $instance_name  = "postfix-$instance"
+    $queue_dir      = "/var/spool/${instance_name}" 
+    $data_dir       = "/var/lib/${instance_name}" 
+    $config_diir    = "/etc/${instance_name}"
 
-    if $config_dir {
-        $c_dir = $config_dir
-    } else {
-        $c_dir = "/etc/$instance_name"
-    }
-
-    if $queue_dir {
-        $q_dir = $queue_dir
-    } else {
-        $q_dir = "/var/spool/$instance_name"
-    }
-
-    if $data_dir {
-        $d_dir = $data_dir
-    } else {
-        $d_dir = "/var/lib/$instance_name"
-    }
-
-    file { $q_dir:
+    file { "${queue_dir}":
         ensure => directory,
-        notify => Exec["check-instance-${instance_name}"]
+        owner   => 'root',
+        group   => 'root'
     }
 
-    file { $d_dir:
-        ensure => directory,
-        notify => Exec["check-instance-${instance_name}"]
+    file { "${data_dir}":
+        ensure  => directory,
+        owner   => 'postfix',
+        group   => 'postfix'
     }
 
-    Exec {
-        path => ['/usr/sbin', '/usr/bin', '/bin']
+    file { "${config_dir}": 
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'root'
     }
 
-    exec { "check-instance-${instance_name}":
-        command     => '/usr/sbin/postfix check',
-        returns     => [0, 1],
-        refreshonly => true
+    file { "$config_dir/dynamicmaps.cf": 
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        require => File[$config_dir]
     }
 
-    exec { "init-instance-support":
-        command => "postmulti -e init",
-        unless => "grep -q multi_instance_wrapper /etc/postfix/main.cf"
+    exec { "init-instance-${instance_name}":
+        command => "/usr/sbin/postmulti -I ${instance_name} -e create",
+        unless  => "/usr/sbin/postmulti -l | /bin/grep '^${instane_name} '"
     }
 
-    exec { "init-instance-$instance":
-        command => "postmulti -I $instance_name -e create \
-            config_directory=$c_dir queue_directory=$q_dir \
-            data_directory=$d_dir",
-        unless  => "postconf multi_instance_directories|grep -q $instance_name",
+    exec { "check-permissions":
+        command     => "/usr/sbin/postfix set-permissions",
+        onlyif      => "/usr/sbin/postfix check 2>&1|/bin/grep 'Permission denied'",
+        subscribe   => Exec['init-instance-${instance_name}'],
+        require     => File["${config_dir}/dynamicmaps.cf"],
+        returns     => [0, 1]
     }
 
-    exec { "enable-instance-$instance":
-        command => "postmulti -i $instance_name -e enable",
-        unless  => "grep -q 'multi_instance_enable = yes' ${c_dir}/main.cf",
-        require => Exec["init-instance-${instance}"]
+
+    if $ensure == 'enabled' {
+        exec { "enable-instance-${instance_name}":
+            command => "postmulti -i $instance_name -e enable",
+            unless  => "grep -q 'multi_instance_enable = yes' ${c_dir}/main.cf",
+            require => Exec["init-instance-${instance}"]
+        }
     }
 }
