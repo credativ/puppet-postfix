@@ -5,8 +5,6 @@ class postfix::instances (
 
     include postfix::setperms
 
-    Class['postfix'] -> Class['postfix::instances']
-
     if $manage_instances {
         if ! is_hash($instances) {
             fail("postfix: instances need to be specified as a hash of instances")

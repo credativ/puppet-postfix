@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.6) unstable; urgency=medium
+
+  * Remove wrong (double) order statement
+
+ -- Patrick Schoenfeld <patrick.schoenfeld@credativ.de>  Fri, 04 Jul 2014 16:19:04 +0200
+
 puppet-module-postfix (1.0.5) unstable; urgency=medium
 
   * Fix a couple of bugs
