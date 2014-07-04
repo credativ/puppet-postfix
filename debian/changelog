@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.5) unstable; urgency=medium
+
+  * Fix a couple of bugs
+
+ -- Patrick Schoenfeld <patrick.schoenfeld@credativ.de>  Fri, 04 Jul 2014 15:47:08 +0200
+
 puppet-module-postfix (1.0.4) unstable; urgency=medium
 
   * Rework multi instance feature
