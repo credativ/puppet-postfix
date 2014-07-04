@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.4) unstable; urgency=medium
+
+  * Rework multi instance feature
+
+ -- Patrick Schoenfeld <patrick.schoenfeld@credativ.de>  Fri, 04 Jul 2014 10:25:42 +0200
+
 puppet-module-postfix (1.0.3) unstable; urgency=medium
 
   * Add a manage_config parameter
