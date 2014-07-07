@@ -15,11 +15,12 @@
 #   Default: present
 #   
 # [*ensure_running*]
-#   Weither to ensure running postfix or not.
+#   Whether to ensure running postfix or not. The special value 'ignore'
+#   tells puppet not to manage the service status
 #   Default: running
 #
 # [*ensure_enabled*]
-#   Weither to ensure that postfix is started on boot or not.
+#   Whether to ensure that postfix is started on boot or not.
 #   Default: true
 #
 # [*config_source*]
@@ -34,15 +35,15 @@
 #   hostname matches a name in the list.
 #
 # [*manage_config*]
-#   Weither to manage configuration of postfix at all. If this is set to false
+#   Whether to manage configuration of postfix at all. If this is set to false
 #   no configuration files (main.cf, aliases, etc.) will be managed at all.
 #
 # [*manage_aliases*]
-#   Weither to manage the aliases file. Note that this also creates an
+#   Whether to manage the aliases file. Note that this also creates an
 #   alias for the root user, so root_alias should be set to a sensible value.
 #
 # [*manage_instances*]
-#   Weither instances should be managed. Only useful in conjunction
+#   Whether instances should be managed. Only useful in conjunction
 #   with the instances parameter.
 #   (Default: False)
 #
@@ -97,7 +98,6 @@ class postfix (
     include postfix::setperms
 
     Class['postfix::package'] -> Class['postfix::instances']
-        -> Class['postfix::service']
 
     $bool_manage_instances = any2bool($manage_instances)
     class { 'postfix::instances':
@@ -117,11 +117,13 @@ class postfix (
         $real_enabled = $ensure_enabled
     }
 
-    class { 'postfix::service':
-        ensure  => $real_running,
-        enabled => $real_enabled
+    if $real_running != 'ignore' {
+     class { 'postfix::service':
+         ensure  => $real_running,
+         enabled => $real_enabled,
+         require => Class['postfix::instances'],
+     }
     }
-
 
     if $manage_config {
         if $config_template {
