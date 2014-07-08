@@ -117,12 +117,10 @@ class postfix (
         $real_enabled = $ensure_enabled
     }
 
-    if $real_running != 'ignore' {
-     class { 'postfix::service':
-         ensure  => $real_running,
-         enabled => $real_enabled,
-         require => Class['postfix::instances'],
-     }
+    class { 'postfix::service':
+        ensure  => $real_running,
+        enabled => $real_enabled,
+        require => Class['postfix::instances'],
     }
 
     if $manage_config {
