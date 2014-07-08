@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.8) unstable; urgency=low
+
+  * Move manage_config ignore logic to service class.
+
+ -- Damian Lukowski <damian.lukowski@credativ.de>  Tue, 08 Jul 2014 12:00:31 +0200
+
 puppet-module-postfix (1.0.7) unstable; urgency=low
 
   * Add special 'ignore' value for ensure_running.
