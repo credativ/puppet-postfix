@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.9) unstable; urgency=low
+
+  * Fix typos in exec conditions.
+
+ -- Damian Lukowski <damian.lukowski@credativ.de>  Tue, 08 Jul 2014 12:54:50 +0200
+
 puppet-module-postfix (1.0.8) unstable; urgency=low
 
   * Move manage_config ignore logic to service class.
