@@ -18,7 +18,7 @@ class postfix::instances (
         
         exec { 'init_multi_instance_support':
             command => '/usr/sbin/postmulti -e init',
-            unless  => 'grep "multi_instance_enable = yes" /etc/postfx/main.cf'
+            unless  => 'grep "multi_instance_enable = yes" /etc/postfix/main.cf'
         }
 
         create_resources(postfix::instance, $instances)

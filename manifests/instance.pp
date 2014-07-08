@@ -42,7 +42,7 @@ define postfix::instance (
     if $ensure == 'enabled' {
         exec { "enable-instance-${instance_name}":
             command => "postmulti -i $instance_name -e enable",
-            unless  => "grep -q 'multi_instance_enable = yes' ${c_dir}/main.cf",
+            unless  => "grep -q 'multi_instance_enable = yes' ${config_dir}/main.cf",
             require => Exec["init-instance-${instance_name}"]
         }
     }
