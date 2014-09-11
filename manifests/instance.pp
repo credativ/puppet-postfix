@@ -2,7 +2,6 @@ define postfix::instance (
   $instance=$title,
   $ensure = 'enabled'
 ) {
-    include postfix::setperms
 
     $instance_name  = "postfix-$instance"
     $queue_dir      = "/var/spool/${instance_name}" 

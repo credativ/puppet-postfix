@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.11) unstable; urgency=medium
+
+  * Disable postfix::setperms (it's broken and causing problems)
+
+ -- Patrick Schoenfeld <patrick.schoenfeld@credativ.de>  Thu, 11 Sep 2014 11:26:19 +0200
+
 puppet-module-postfix (1.0.10) unstable; urgency=medium
 
   * Add some more specific note about config source to config header

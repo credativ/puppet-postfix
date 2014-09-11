@@ -95,8 +95,6 @@ class postfix (
 
     ) inherits postfix::params {
 
-    include postfix::setperms
-
     Class['postfix::package'] -> Class['postfix::instances']
 
     $bool_manage_instances = any2bool($manage_instances)
