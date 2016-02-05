@@ -1,3 +1,9 @@
+puppet-module-postfix (1.0.13) unstable; urgency=medium
+
+  * add postfix::hash
+
+ -- Arnd Hannemann <arnd.hannemann@credativ.de>  Fri, 05 Feb 2016 09:46:20 +0100
+
 puppet-module-postfix (1.0.12) unstable; urgency=low
 
   * Fix used variable in template.
