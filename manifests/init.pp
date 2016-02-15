@@ -70,6 +70,9 @@
 # [*inet_interfaces*]
 #   Allows to define a value for the inet_interfaces parameter.
 #
+# [*inet_protocols*]
+#   Allows to define a value for the inet_protocols parameter.
+#
 # == Author:
 #
 #   Patrick Schoenfeld <patrick.schoenfeld@credativ.de
@@ -92,6 +95,7 @@ class postfix (
     $localdomain        = params_lookup('localdomain'),
     $relayhost          = params_lookup('relayhost'),
     $inet_interfaces    = params_lookup('inet_interfaces'),
+    $inet_protocols     = params_lookup('inet_protocols'),
 
     ) inherits postfix::params {
 
