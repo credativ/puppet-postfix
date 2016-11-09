@@ -1,0 +1,10 @@
+fixtures:
+  symlinks:
+    postfix: "#{source_dir}"
+  forge_modules:
+    stdlib:
+      repo: 'puppetlabs/stdlib'
+      ref: '4.2.1'
+  repositories:
+    example42lib:
+      repo: 'https://github.com/credativ/puppet-example42lib'

@@ -27,6 +27,7 @@
 # }
 #
 define postfix::hash ($ensure='present', $source = false) {
+  include postfix::package
 
   case $source {
     false: {
