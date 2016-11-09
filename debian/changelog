@@ -1,3 +1,11 @@
+puppet-module-postfix (1.0.14) unstable; urgency=medium
+
+  [ Bastian Blank ]
+  * Add some minimal tests
+  * Add missing include
+
+ -- Maximilian Gaß <maximilian.gass@credativ.de>  Wed, 09 Nov 2016 12:56:14 +0000
+
 puppet-module-postfix (1.0.13) unstable; urgency=medium
 
   * add postfix::hash
