@@ -1,11 +1,11 @@
 # MANAGED BY PUPPET (postfix/templates, via params/hiera)
 
 postmaster: root
-<% if root_alias -%>
-root: <%= root_alias %>
+<% if @root_alias -%>
+root: <%= @root_alias %>
 <% end -%>
-<% if aliases -%>
-<% aliases.each do |key,val| -%>
+<% if @aliases -%>
+<% @aliases.each do |key,val| -%>
 <%= key %>: <%= val %>
 <% end %>
 <% end %>
