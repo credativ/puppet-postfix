@@ -4,6 +4,7 @@ class postfix::params {
     $ensure_enabled     = true
     $manage_instances   = false
     $manage_aliases     = false
+    $manage_config      = undef
     $config_source      = undef
     $config_template    = undef
     $instances          = undef
