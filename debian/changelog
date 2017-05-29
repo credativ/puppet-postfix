@@ -1,3 +1,11 @@
+puppet-module-postfix (1.1.0) unstable; urgency=medium
+
+  * Get rid of params_lookup()
+  * Add @sigils to external erb variables.
+  * Add missing parameter to params.pp
+
+ -- Damian Lukowski <damian.lukowski@credativ.de>  Mon, 29 May 2017 14:40:25 +0200
+
 puppet-module-postfix (1.0.14) unstable; urgency=medium
 
   [ Bastian Blank ]
